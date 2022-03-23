@@ -3,6 +3,8 @@ name: 'Build and test our Eshop'
 on:
   workflow_dispatch:
   push:
+  pull_request: 
+    depends_on: [build, test]
 
 jobs:
   install:
