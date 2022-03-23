@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   push:
   pull_request: 
-    depends_on: [build, test]
-    # koment
+    dependsOn: [build, test]
 
 jobs:
   install:
