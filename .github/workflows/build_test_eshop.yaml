@@ -3,7 +3,7 @@ name: 'Build and test our Eshop'
 on:
   workflow_dispatch:
   push:
-  pull_request: 
+  pull_request:
     depends_on: [build, test]
     # koment
 
@@ -19,7 +19,7 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v2
-        with: 
+        with:
           node-version: 10
 
       - name: Cache node modules
@@ -29,7 +29,7 @@ jobs:
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: node_modules-
 
-      - name: Install package with npm 
+      - name: Install package with npm
         run: |
           npm ci
 
@@ -45,7 +45,7 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v2
-        with: 
+        with:
           node-version: 10
 
       - name: Cache node modules
@@ -58,8 +58,18 @@ jobs:
         run:
           npm rebuild node-sass --force
           npm run build -- --colors
-          
 
+      - name: Cache node modules and build folder
+        if: ${{ github.ref == 'refs/heads/master' }}
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ./node_modules
+            ./build
+          key: ${{ runner.os }}-build-${{ github.run_id }}
+          restore-keys: ${{ runner.os }}-build-${{ github.run_id }}
+          
   test:
     needs: install
     runs-on: ubuntu-latest
@@ -72,7 +82,7 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v2
-        with: 
+        with:
           node-version: 10
 
       - name: Cache node modules
@@ -84,4 +94,4 @@ jobs:
       - name: Run tests
         run: |
           npm run test -- --colors
-          
+
