@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  install:
+  Install:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,8 +31,8 @@ jobs:
         run: |
           npm ci
 
-  build:
-    needs: install
+  Build:
+    needs: Install
     runs-on: ubuntu-latest
 
     steps:
@@ -68,8 +68,8 @@ jobs:
           key: ${{ runner.os }}-build-${{ github.run_id }}
           restore-keys: ${{ runner.os }}-build-${{ github.run_id }}
 
-  test:
-    needs: install
+  Test:
+    needs: Install
     runs-on: ubuntu-latest
 
     steps:
@@ -93,8 +93,8 @@ jobs:
         run: |
           npm run test -- --colors
 
-  deploy:
-    needs: [build, test]
+  Deploy:
+    needs: [Build, Test]
     runs-on: ubuntu-latest
     if:  ${{ github.ref == 'refs/heads/master' }}
 
