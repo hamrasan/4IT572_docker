@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   push:
   pull_request:
-    depends_on: [build, test]
-    # koment
 
 jobs:
   install:
@@ -55,7 +53,7 @@ jobs:
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
 
       - name: Build
-        run:
+        run: |
           npm rebuild node-sass --force
           npm run build -- --colors
 
