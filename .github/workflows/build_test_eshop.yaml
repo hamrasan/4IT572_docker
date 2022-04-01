@@ -119,4 +119,5 @@ jobs:
           args: deploy --only hosting --public build/hamrasan-devops
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_PROJECT: hamrasan-devops
           PROJECT_ID: default
